@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище AngDemoDBModel" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Хранилище AngDemoDBModelContainer">
+    <EntitySet Name="Categories" EntityType="Хранилище AngDemoDBModel.Categories" store:Type="Tables" />
+    <EntitySet Name="PRODUCTS" EntityType="Хранилище AngDemoDBModel.PRODUCTS" store:Type="Tables" />
+    <EntitySet Name="USERS" EntityType="Хранилище AngDemoDBModel.USERS" store:Type="Tables" />
+    <AssociationSet Name="PRO_CAT" Association="Хранилище AngDemoDBModel.PRO_CAT">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IDPARENT" Type="int" />
+    <Property Name="SNM" Type="nvarchar" Nullable="false" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="PRODUCTS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IDCAT" Type="int" Nullable="false" />
+    <Property Name="SNM" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="PRICE" Type="numeric" Nullable="false" Scale="2" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="USERID" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="PASSWORD" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="EMAIL" Type="nvarchar" Nullable="false" MaxLength="64" />
+    <Property Name="PHONE" Type="nvarchar" MaxLength="16" />
+    <Property Name="FIO" Type="nvarchar" Nullable="false" MaxLength="128" />
+  </EntityType>
+  <Association Name="PRO_CAT">
+    <End Role="Categories" Type="Хранилище AngDemoDBModel.Categories" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PRODUCTS" Type="Хранилище AngDemoDBModel.PRODUCTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PRODUCTS">
+        <PropertyRef Name="IDCAT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

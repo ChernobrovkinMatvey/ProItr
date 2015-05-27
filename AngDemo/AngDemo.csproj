@@ -96,6 +96,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
@@ -194,33 +195,38 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AngDemoContext.cs" />
-    <Compile Include="Models\AngDemoEntityes.Context.cs">
+    <Compile Include="Models\AngDemoDBEntityes.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AngDemoEntityes.Context.tt</DependentUpon>
+      <DependentUpon>AngDemoDBEntityes.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AngDemoEntityes.cs">
+    <Compile Include="Models\AngDemoDBEntityes.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AngDemoEntityes.tt</DependentUpon>
+      <DependentUpon>AngDemoDBEntityes.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AngDemoEntityes.Designer.cs">
+    <Compile Include="Models\AngDemoDBEntityes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AngDemoEntityes.edmx</DependentUpon>
+      <DependentUpon>AngDemoDBEntityes.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
-      <DependentUpon>AngDemoEntityes.tt</DependentUpon>
+      <DependentUpon>AngDemoDBEntityes.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PRODUCT.cs">
-      <DependentUpon>AngDemoEntityes.tt</DependentUpon>
+      <DependentUpon>AngDemoDBEntityes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USER.cs">
+      <DependentUpon>AngDemoDBEntityes.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\AngDemoDB.sdf" />
     <Content Include="Content\AngDemo.js" />
+    <Content Include="Content\Login.html" />
     <Content Include="Content\Purchase.html" />
+    <Content Include="Content\Purchase.js" />
     <Content Include="Content\remove_small.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
@@ -262,6 +268,23 @@
     <Content Include="Scripts\Underscore\underscore.js" />
     <Content Include="Scripts\Underscore\underscore.min.js" />
     <Content Include="Scripts\Underscore\underscore.min.map" />
+    <EntityDeploy Include="Models\AngDemoDBEntityes.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AngDemoDBEntityes.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\AngDemoDBEntityes.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AngDemoDBEntityes.edmx</DependentUpon>
+      <LastGenOutput>AngDemoDBEntityes.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\AngDemoDBEntityes.edmx.diagram">
+      <DependentUpon>AngDemoDBEntityes.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\AngDemoDBEntityes.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AngDemoDBEntityes.edmx</DependentUpon>
+      <LastGenOutput>AngDemoDBEntityes.cs</LastGenOutput>
+    </Content>
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -278,23 +301,6 @@
     <None Include="_bin_deployableAssemblies\amd64\sqlceca40.dll" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\README_ENU.txt" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
-    <EntityDeploy Include="Models\AngDemoEntityes.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AngDemoEntityes.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\AngDemoEntityes.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AngDemoEntityes.edmx</DependentUpon>
-      <LastGenOutput>AngDemoEntityes.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\AngDemoEntityes.edmx.diagram">
-      <DependentUpon>AngDemoEntityes.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\AngDemoEntityes.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AngDemoEntityes.edmx</DependentUpon>
-      <LastGenOutput>AngDemoEntityes.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\Angular\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\Angular\i18n\angular-locale_aa-er.js" />
     <Content Include="Scripts\Angular\i18n\angular-locale_aa-et.js" />

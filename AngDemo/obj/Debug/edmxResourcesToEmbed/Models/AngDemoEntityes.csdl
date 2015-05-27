@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AngDemoDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="AngDemoDBEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="AngDemoDBModel.Category" />
+    <EntitySet Name="Products" EntityType="AngDemoDBModel.PRODUCT" />
+    <AssociationSet Name="PRO_CAT" Association="AngDemoDBModel.PRO_CAT">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="PRODUCT" EntitySet="Products" />
+    </AssociationSet>
+    <EntitySet Name="Users" EntityType="AngDemoDBModel.USER" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IDPARENT" Type="Int32" />
+    <Property Name="SNM" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="PRODUCTS" Relationship="AngDemoDBModel.PRO_CAT" FromRole="Category" ToRole="PRODUCT" />
+  </EntityType>
+  <EntityType Name="PRODUCT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDCAT" Type="Int32" Nullable="false" />
+    <Property Name="SNM" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="PRICE" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="Category" Relationship="AngDemoDBModel.PRO_CAT" FromRole="PRODUCT" ToRole="Category" />
+  </EntityType>
+  <Association Name="PRO_CAT">
+    <End Type="AngDemoDBModel.Category" Role="Category" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="AngDemoDBModel.PRODUCT" Role="PRODUCT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PRODUCT">
+        <PropertyRef Name="IDCAT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="USER" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="USERID" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="PASSWORD" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EMAIL" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="PHONE" MaxLength="16" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="FIO" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

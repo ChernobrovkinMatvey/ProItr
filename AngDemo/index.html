@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" ng-app="AngDemo">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Ang DEMO</title>
@@ -9,120 +9,35 @@
 	<script src="Scripts/Angular/angular-route.js"></script>
 
 	<style type="text/css">
-		.hide { display: none; }
-
-		table.Main {
-			width: 100%;
-			border: none!important;
-		}
-		table.Main>tbody>tr>td {
-			vertical-align: top;
-			border: none!important;
-		}
-
-		.catCont {
-			width: 250px;
-		}
-		.prodCont {
-			padding-left: 10px;
-			padding-right: 10px;
-		}
-		.purchCont {
-			width: 300px;
-		}
-
-		.Item {
-			padding: 3px;
-		}
-		.Clickable:hover {
-			cursor: pointer;
-		}
-
-		.Cat:hover {
-			color: #56A6CB!important;
-			background-color: #E6E6E6;
-		}
-		.Cat.Selected {
-			background-color: rgb(223, 192, 192);
-		}
-		
-		.Prod {
-			padding: 5px 5px 0px 5px;
-			border: 1px solid rgb(197, 224, 226);
-			margin-bottom: 10px;
-			overflow: auto;
-		}
-		#ProdCont { overflow-y: auto; }
-		.PName {
-			font-size: 16px;
-			color: rgba(0, 0, 0, 0.9);
-		}
-		.PCost {
-			float: left;
-			margin-top: 10px;
-			font-weight: bold;
-		}
-		.PBay {
-			float: right;
-			background-color: rgb(83, 192, 83);
-			color: #FFFFFF;
-			padding: 5px;
-			font-size: 18px;
-		}
-		.PDisable {
-			cursor: default!important;
-			background-color: silver!important;
-		}
-
-		.Bayz {
-			padding: 3px;
-			overflow: auto;
-		}
-		.Bayz:hover {
-			background-color: rgb(242, 247, 249);
-		}
-		.BName {
-			font-size: 14px;
-			float: left;
-			font-weight: bold;
-		}
-		.BRemove {
-			float: right;
-			background: url('Content/remove_small.png');
-			height: 12px;
-			width: 12px;
-			background-repeat: no-repeat;
-		}
-		.BSum {
-			margin: 6px 3px 6px 3px;
-			font-size: 16px;
-			font-weight: bold;
-		}
-		.BClear {
-			text-align: center;
-			color: black;
-			font-size: 15px;
-			padding: 8px;
-			font-weight: bold;
-			background-color: rgb(205, 218, 229);
-			border-radius: 5px;
-		}
+		.Clickable { cursor: pointer; }
 	</style>
 
+	<script type="text/javascript">
+		window.onresize = function () {
+			var main_elem = document.getElementById('main');
+			var elem_h = (window.outerHeight - 200);
+			main_elem.style.height = elem_h + 'px';
+			//if (typeof window.on_resize == 'function') { // дочерний ресайз не получается
+			//	window.on_resize(main_elem, elem_h);
+			//};
+			var elem = document.getElementById('ProdCont');
+			if (elem && elem.previousElementSibling) {
+				elem.style.height = (elem_h - elem.previousElementSibling.offsetHeight - 15) + 'px';
+			}
+		};
+	</script>
 </head>
 
-<body ng-app="AngDemo">
+<body>
 	<div class="page">
 		<header>
-			<div id="title">
-				<h1>
-					Приложение MVC
-				</h1>
+			<div id="title" onclick="window.location.href = '#Login';" class="Clickable">
+				<h1>Залогониться</h1>
 			</div>
-			<nav>
+			<nav style="margin-left: 400px;">
 				<ul id="menu">
 					<li>
-						<span>Закупка</span>
+						<a href="#Purchase">Закупка</a>
 					</li>
 				</ul>
 			</nav>
@@ -134,14 +49,6 @@
 
 	<script src="Content/AngDemo.js"></script>
 	<script type="text/javascript">
-		window.onresize = function () {
-			var elem = document.getElementById('main');
-			var p = (window.outerHeight - 250);
-			elem.style.height = p + 'px';
-			elem = document.getElementById('ProdCont');
-			elem.style.height = (p-50) + 'px';
-		};
-
 		onresize();
 	</script>
 </body>

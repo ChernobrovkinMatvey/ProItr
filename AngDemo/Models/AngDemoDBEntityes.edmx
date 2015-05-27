@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище AngDemoDBEntities" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="Хранилище AngDemoDBEntitiesContainer">
+          <EntitySet Name="Categories" EntityType="Хранилище AngDemoDBEntities.Categories" store:Type="Tables" />
+          <EntitySet Name="PRODUCTS" EntityType="Хранилище AngDemoDBEntities.PRODUCTS" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Хранилище AngDemoDBEntities.USERS" store:Type="Tables" />
+          <AssociationSet Name="PRO_CAT" Association="Хранилище AngDemoDBEntities.PRO_CAT">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IDPARENT" Type="int" />
+          <Property Name="SNM" Type="nvarchar" Nullable="false" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="PRODUCTS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IDCAT" Type="int" Nullable="false" />
+          <Property Name="SNM" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="PRICE" Type="numeric" Nullable="false" Scale="2" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="USERID" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="PASSWORD" Type="nvarchar" Nullable="false" MaxLength="32" />
+          <Property Name="EMAIL" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="PHONE" Type="nvarchar" MaxLength="16" />
+          <Property Name="FIO" Type="nvarchar" Nullable="false" MaxLength="128" />
+        </EntityType>
+        <Association Name="PRO_CAT">
+          <End Role="Categories" Type="Хранилище AngDemoDBEntities.Categories" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PRODUCTS" Type="Хранилище AngDemoDBEntities.PRODUCTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUCTS">
+              <PropertyRef Name="IDCAT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AngDemoDBEntityes" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AngDemoEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="AngDemoDBEntityes.Category" />
+          <EntitySet Name="PRODUCTS" EntityType="AngDemoDBEntityes.PRODUCT" />
+          <EntitySet Name="USERS" EntityType="AngDemoDBEntityes.USER" />
+          <AssociationSet Name="PRO_CAT" Association="AngDemoDBEntityes.PRO_CAT">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="PRODUCTS" EntitySet="PRODUCTS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPARENT" Type="Int32" />
+          <Property Name="SNM" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="PRODUCTS" Relationship="AngDemoDBEntityes.PRO_CAT" FromRole="Categories" ToRole="PRODUCTS" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCAT" Type="Int32" Nullable="false" />
+          <Property Name="SNM" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+          <Property Name="PRICE" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Category" Relationship="AngDemoDBEntityes.PRO_CAT" FromRole="PRODUCTS" ToRole="Categories" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="USERID" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+          <Property Name="EMAIL" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="PHONE" Type="String" MaxLength="16" Unicode="true" FixedLength="false" />
+          <Property Name="FIO" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <Association Name="PRO_CAT">
+          <End Role="Categories" Type="AngDemoDBEntityes.Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PRODUCTS" Type="AngDemoDBEntityes.PRODUCT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PRODUCTS">
+              <PropertyRef Name="IDCAT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище AngDemoDBEntitiesContainer" CdmEntityContainer="AngDemoEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="AngDemoDBEntityes.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDPARENT" ColumnName="IDPARENT" />
+                <ScalarProperty Name="SNM" ColumnName="SNM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTS">
+            <EntityTypeMapping TypeName="AngDemoDBEntityes.PRODUCT">
+              <MappingFragment StoreEntitySet="PRODUCTS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDCAT" ColumnName="IDCAT" />
+                <ScalarProperty Name="SNM" ColumnName="SNM" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="AngDemoDBEntityes.USER">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

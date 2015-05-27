@@ -11,10 +11,10 @@ namespace AngDemo.Models
 
 	public class AngDemoContext : IAngDemoContext
 	{
-		public AngDemoDBEntities Context { get; private set; }
+		public AngDemoEntities Context { get; private set; }
 
 		public AngDemoContext() {
-			Context = new AngDemoDBEntities();
+			Context = new AngDemoEntities();
 		}
 	}
 }
