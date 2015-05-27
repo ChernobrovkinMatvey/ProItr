@@ -1,0 +1,37 @@
+﻿<table class="Main">
+	<tr>
+		<td class="catCont">
+			<h2>Выберите категорию:</h2>
+			<div ng-repeat="cat in Categories" ng-attr-id="{{'cat'+cat.Id}}" class="Item Cat Clickable" ng-click="catClick(cat);" ng-class="{ Selected: cat.Id == catSelected }">
+				{{cat.Name}}
+			</div>
+		</td>
+		<td class="prodCont">
+			<h2 style="text-align: center;">Содержимое категории:</h2>
+			<div id="ProdCont">
+				<div ng-repeat="prod in Products" ng-attr-id="{{'prod'+prod.Id}}" class="Prod">
+					<div class="PName">{{prod.Name}}</div>
+					<div style="overflow: auto;">
+						<div class="PCost">{{prod.Price.toLocaleString('ru') + ' руб.'}}</div>
+						<div class="PBay Clickable" ng-click="prodClick(prod);" ng-class="{ PDisable: prod.isBay}">В корзину</div>
+					</div>
+				</div>
+			</div>
+		</td>
+		<td class="purchCont">
+			<div>
+				<h2>Корзина</h2>
+				<div style="max-height: 200px; overflow-y: auto;">
+					<div ng-repeat="prod in Bayz" ng-attr-id="{{'bayz'+prod.Id}}" class="Bayz">
+						<div class="BName">{{prod.Name}}</div>
+						<div class="BRemove Clickable" ng-click="bayRemove(prod);"></div>
+					</div>
+				</div>
+				<div class="BSum">
+					{{'Сумма покупки: ' + Sum.toLocaleString('ru') + ' руб.'}}
+				</div>
+				<div class="BClear Clickable" ng-class="{ hide: Sum === 0 }" ng-click="clearAll();">Очистить корзину</div>
+			</div>
+		</td>
+	</tr>
+</table>
